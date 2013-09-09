@@ -66,6 +66,22 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="dudroid.dudumagicphone.MainActivity" />
         </activity>
+        <activity
+            android:name="dudroid.dudumagicphone.ShowSpellActivity"
+            android:label="@string/title_activity_book_menu"
+            android:parentActivityName="dudroid.dudumagicphone.BookMenuActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="dudroid.dudumagicphone.BookMenuActivity" />
+        </activity>
+        <activity
+            android:name="dudroid.dudumagicphone.CastSpellActivity"
+            android:label="@string/title_activity_cast_spell"
+            android:parentActivityName="dudroid.dudumagicphone.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="dudroid.dudumagicphone.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

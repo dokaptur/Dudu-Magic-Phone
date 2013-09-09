@@ -2,7 +2,7 @@ package dudroid.dudumagicphone;
 
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
-import java.util.TreeSet;
+import java.util.TreeMap;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -129,8 +129,8 @@ public class CreateSpellResActivity extends Activity implements OnItemSelectedLi
 			myCharm.setResultFunction("torch", params);
 		}
 		
-		TreeSet<Charm> availCharms = ((MyApplication) getApplication()).availCharms;
-		availCharms.add(myCharm);
+		TreeMap<String, Charm> availCharms = ((MyApplication) getApplication()).availCharms;
+		availCharms.put(myCharm.spell, myCharm);
 		try {
 			FileOutputStream fos = openFileOutput("FileForCharms", MODE_APPEND);
 			ObjectOutputStream os = new ObjectOutputStream(fos);

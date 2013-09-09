@@ -1,7 +1,7 @@
 package dudroid.dudumagicphone;
 
 import java.util.ArrayList;
-import java.util.TreeSet;
+import java.util.TreeMap;
 
 import dudroid.dudumagicphone.Charm.CharmType;
 import android.os.Bundle;
@@ -95,7 +95,14 @@ public class CreateSpellActivity extends Activity {
 			Toast.makeText(this, "Please check a type of your spell", Toast.LENGTH_SHORT).show();
 			return;
 		} 
+		
 		String spell = spinner.getSelectedItem().toString();
+		
+		TreeMap<String, Charm> availCharms = ((MyApplication) getApplication()).availCharms;
+		if (availCharms.containsKey(spell)) {
+			Toast.makeText(this, "A spell with such incantation already exist. Please say different spell", Toast.LENGTH_SHORT).show();
+			return;
+		}
 		Charm myCharm;
 		if (type == R.id.speking_id) {
 			myCharm = new Charm (spell, CharmType.PLAIN);
@@ -105,12 +112,6 @@ public class CreateSpellActivity extends Activity {
 			myCharm = new Charm (spell, CharmType.MOVE);
 		}
 		((MyApplication) getApplication()).tmpCharm = myCharm;
-		
-		TreeSet<Charm> availCharms = ((MyApplication) getApplication()).availCharms;
-		if (availCharms.contains(myCharm)) {
-			Toast.makeText(this, "A spell with such incantation already exist. Please say different spell", Toast.LENGTH_SHORT).show();
-			return;
-		}
 		
 		Intent intent;
 		if (type == R.id.speking_id) {

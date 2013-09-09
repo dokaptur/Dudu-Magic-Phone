@@ -3,7 +3,7 @@ package dudroid.dudumagicphone;
 import java.io.Serializable;
 
 
-public class Charm implements Serializable, Comparable<Charm> {
+public class Charm implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	public String spell;
@@ -12,7 +12,25 @@ public class Charm implements Serializable, Comparable<Charm> {
 	private String result;
 	private Object[] params;
 	
-	enum CharmType {PLAIN, DRAW, MOVE}
+	enum CharmType {
+		PLAIN {
+			@Override
+			public String toString() {
+				return "Speaking only";
+			}
+		}, 
+		DRAW {
+			@Override
+			public String toString() {
+				return "Speaking and drawing";
+			}
+		}, MOVE {
+			@Override
+			public String toString() {
+				return "Speaking and waving";
+			}
+		}
+	}
 	
 	public Charm (String spell, CharmType type) {
 		this.spell = spell;
@@ -38,20 +56,7 @@ public class Charm implements Serializable, Comparable<Charm> {
 		return params;
 	}
 
-	@Override
-	public int compareTo(Charm another) {
-		return this.spell.compareTo(another.spell);
-	}
 	
-	@Override
-	public boolean equals (Object another) {
-		if (!(another instanceof Charm)) {
-			return false;
-		}
-		Charm anth = (Charm) another;
-		if (this.compareTo(anth)==0) return true;
-		return false;
-	}
 	
 
 }

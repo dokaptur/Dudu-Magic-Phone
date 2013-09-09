@@ -2,14 +2,13 @@ package dudroid.dudumagicphone;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TreeSet;
+import java.util.TreeMap;
 
 import dudroid.dudumagicphone.Charm.CharmType;
 import android.os.Bundle;
 import android.app.Activity;
-import android.graphics.Color;
+import android.content.Intent;
 import android.util.SparseIntArray;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +18,8 @@ import android.widget.LinearLayout;
 import android.support.v4.app.NavUtils;
 
 public class BookMenuActivity extends Activity implements OnClickListener {
+	
+	public static final String SPELL_TO_SHOW = "dudroid.dudumagicphone.SpellToShow";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,12 +28,13 @@ public class BookMenuActivity extends Activity implements OnClickListener {
 		// Show the Up button in the action bar.
 		setupActionBar();
 		
-		TreeSet<Charm> availCharms = ((MyApplication) getApplication()).availCharms;
+		TreeMap<String, Charm> availCharms = ((MyApplication) getApplication()).availCharms;
 		List<String> plainNames = new ArrayList<String>();
 		List<String> drawNames = new ArrayList<String>();
 		List<String> moveNames = new ArrayList<String>();
 		
-		for (Charm charm: availCharms) {
+		for (String name: availCharms.keySet()) {
+			Charm charm = availCharms.get(name);
 			if (charm.type == CharmType.PLAIN) {
 				plainNames.add(charm.spell);
 			} else if (charm.type == CharmType.DRAW){
@@ -97,7 +99,11 @@ public class BookMenuActivity extends Activity implements OnClickListener {
 		
 		int clickedId = ((Button) view).getId();
 		LinearLayout toshow = (LinearLayout) findViewById(map.get(clickedId));
-		toshow.setVisibility(View.VISIBLE);
+		if (toshow.getVisibility() == View.VISIBLE) {
+			toshow.setVisibility(View.GONE);
+		} else {
+			toshow.setVisibility(View.VISIBLE);
+		}
 		
 		for (int i=0; i<map.size(); i++) {
 			int key = map.keyAt(i);
@@ -109,7 +115,9 @@ public class BookMenuActivity extends Activity implements OnClickListener {
 	}
 	@Override
 	public void onClick(View view) {
-		
+		Intent intent = new Intent(this, ShowSpellActivity.class);
+		intent.putExtra(SPELL_TO_SHOW, ((Button) view).getText().toString());
+		startActivity(intent);
 	}
 
 }

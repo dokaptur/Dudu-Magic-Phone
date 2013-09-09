@@ -36,5 +36,10 @@
     <string name="try_spell">Try</string>
     <string name="add_spell">Add spell to the \n Book Of Magik</string>
     <string name="title_activity_book_menu">Book of Magic</string>
+    <string name="show_spell_name_intro">Incantation of spell: </string>
+    <string name="return_str">Return</string>
+    <string name="show_spell_type_intro">Type of spell: </string>
+    <string name="title_activity_cast_spell">Casting a spell</string>
+    <string name="do_it">Do it!</string>
 
 </resources>

@@ -1,23 +1,23 @@
 package dudroid.dudumagicphone;
 
 import java.io.*;
-import java.util.TreeSet;
+import java.util.TreeMap;
 
 import dudroid.dudumagicphone.Charm.CharmType;
 import android.app.Application;
 
 public class MyApplication extends Application {
 	
-	public TreeSet<Charm> availCharms;
+	public TreeMap<String, Charm> availCharms;
 	public Charm tmpCharm;
 	
 	public MyApplication() {
-		availCharms = new TreeSet<Charm>();
+		availCharms = new TreeMap<String,Charm>();
 		
 		// for debug only!!!
 		Charm debug = new Charm("debug", CharmType.PLAIN);
 		debug.setResultFunction("torch", new Integer[]{3,500,100});
-		availCharms.add(debug);
+		availCharms.put("debug",debug);
 		
 		try {
 			FileInputStream fis = openFileInput("FileForCharms");
@@ -26,7 +26,8 @@ public class MyApplication extends Application {
 			do {
 				read = is.readObject();
 				if (read != null && read instanceof Charm) {
-					availCharms.add((Charm) read);
+					Charm toPut = (Charm) read;
+					availCharms.put(toPut.spell, toPut);
 				}
 			}while (read != null);
 			is.close();
