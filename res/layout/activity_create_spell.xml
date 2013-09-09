@@ -1,0 +1,85 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".CreateSpellActivity"
+    android:background="#E3CEF6" >
+    
+   
+
+    <TextView
+        android:id="@+id/saytext"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/say_spell"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <ImageButton
+        android:id="@+id/saybutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/saytext"
+        android:layout_below="@+id/saytext"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/speaker"
+        android:onClick="speak" />
+    
+    <Spinner
+        android:id="@+id/recognitions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@id/saybutton"
+        android:layout_below="@id/saytext" />
+    
+    <TextView 
+        android:id="@+id/choose_type_txt"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/saybutton"
+        android:layout_marginTop="50dp"
+        android:text="@string/spell_type_text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+    <RadioGroup 
+        android:id="@+id/spell_types"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:orientation="vertical"
+        android:layout_below="@id/choose_type_txt"
+        android:layout_marginTop="20dp" >
+        
+        <RadioButton 
+            android:id = "@+id/speking_id"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/speaking_spell" />
+        
+        <RadioButton 
+            android:id = "@+id/speking_drawing_id"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/speakin_drawing" />
+        
+        <RadioButton 
+            android:id = "@+id/speking_waving_id"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/speaking_waving" />
+        
+    </RadioGroup>   
+    
+    <Button 
+        android:id = "@+id/next_btn1"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:text="@string/next_btn" 
+        android:onClick="goNext" />     
+
+</RelativeLayout>

@@ -1,0 +1,57 @@
+<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity" >
+    
+	<RelativeLayout 
+	    android:id="@+id/rel_lay"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content" >
+	    
+	
+	    <Button
+	        android:id="@+id/button_do"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_centerHorizontal="true"
+	        android:text="@string/do_magic" />
+	
+	    <Button
+	        android:id="@+id/button_read"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@id/button_do"
+	        android:text="@string/magic_book"
+	        android:onClick="readBook" />
+	    
+	    <Button
+	        android:id="@+id/button_create"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@id/button_read"
+	        android:text="@string/create_own"
+	        android:onClick = "createSpell" />
+	    
+	    <!--  <FrameLayout 
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:layout_below="@id/button_create"
+	        android:background="@drawable/unicorn" ></FrameLayout> -->
+	        
+	    <ImageView 
+	        android:id="@+id/unicorn_png"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="20dp"
+	        android:layout_below="@id/button_create"
+	        android:src="@drawable/unicorn"
+	        android:scaleType="centerCrop"
+	        android:adjustViewBounds="true" />
+	    
+	</RelativeLayout>
+</ScrollView>

@@ -1,0 +1,120 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".CreateSpellResActivity"
+    android:background="#E3CEF6" >
+
+    <TextView
+        android:id="@+id/choose_res_text_id"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/choose_result"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+    <Spinner 
+        android:id="@+id/results"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/choose_res_text_id"
+        android:layout_marginTop="20dp" />
+    
+    <RelativeLayout 
+        android:id="@+id/light_preferences"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/results"
+        android:layout_marginTop="10dp" >
+        
+        <EditText 
+            android:id="@+id/times"
+            android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:hint="@string/nr1"
+        	android:inputType="numberDecimal" />
+        
+        <TextView 
+            android:id="@+id/times_txt"
+            android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_toRightOf="@id/times"
+        	android:textAppearance="?android:attr/textAppearanceMedium"
+        	android:layout_marginLeft="5dp"
+        	android:layout_alignBaseline="@id/times"
+        	android:text="@string/light_times" />
+        
+         <EditText 
+            android:id="@+id/duration"
+            android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:hint="@string/nr1000"
+        	android:layout_toRightOf="@id/times_txt"
+        	android:layout_marginLeft="5dp"
+        	android:layout_alignBaseline="@+id/times_txt"
+        	android:inputType="numberDecimal" />
+         
+         <TextView 
+            android:id="@+id/duration_txt"
+            android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_toRightOf="@id/duration"
+        	android:textAppearance="?android:attr/textAppearanceMedium"
+        	android:layout_marginLeft="5dp"
+        	android:layout_alignBaseline="@id/times"
+        	android:text="@string/light_breakes" />
+         
+         <TextView 
+            android:id="@+id/with_txt"
+            android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_below="@id/times"
+        	android:layout_marginTop="10dp"
+        	android:textAppearance="?android:attr/textAppearanceMedium"
+        	android:text="@string/with" />
+         
+         <EditText 
+            android:id="@+id/breakes"
+            android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:hint="@string/nr1000"
+        	android:layout_toRightOf="@id/with_txt"
+        	android:layout_alignBaseline="@+id/with_txt"
+        	android:layout_marginLeft="5dp"
+        	android:inputType="numberDecimal" />
+
+         <TextView
+             android:id="@+id/interceptions_txt"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignBaseline="@+id/with_txt"
+             android:layout_alignBottom="@+id/with_txt"
+             android:layout_marginLeft="5dp"
+             android:layout_toRightOf="@+id/breakes"
+             android:text="@string/interceptions"
+             android:textAppearance="?android:attr/textAppearanceMedium" />
+                    
+    </RelativeLayout>
+    
+    <Button 
+        android:id="@+id/try_btn"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/try_spell"
+        android:onClick="trySpell" />
+    
+    <Button 
+        android:id="@+id/done_btn"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_spell"
+        android:onClick="spellDone" />
+        
+</RelativeLayout>
