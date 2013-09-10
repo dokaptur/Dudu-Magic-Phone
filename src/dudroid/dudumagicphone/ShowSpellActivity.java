@@ -16,7 +16,6 @@ import android.support.v4.app.NavUtils;
 
 public class ShowSpellActivity extends Activity {
 	
-	public static final String CHARM_TYPE_CAST = "dudroid.dudumagicphone.CharmTypeCast";
 	public static final String CHARM_NAME_CAST = "dudroid.dudumagicphone.CharmNameCast";
 
 	TreeMap<String, Charm> availCharms;
@@ -75,14 +74,8 @@ public class ShowSpellActivity extends Activity {
 	}
 	
 	public void tryToCast(View view) {
-		
-		Charm charm = availCharms.get(charmName);
-		int typeNr = charm.type.ordinal();
-		
-		
 		Intent intent = new Intent(this, CastSpellActivity.class);
 		intent.putExtra(CHARM_NAME_CAST, charmName);
-		intent.putExtra(CHARM_TYPE_CAST, typeNr);
 		startActivity(intent);
 	}
 	

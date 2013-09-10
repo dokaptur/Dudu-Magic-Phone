@@ -29,5 +29,9 @@ public class MainActivity extends Activity {
 		Intent intent = new Intent(this, BookMenuActivity.class);
 		startActivity(intent);
 	}
+	public void doMagic(View view) {
+		Intent intent = new Intent(this, DoMagicMenuActivity.class);
+		startActivity(intent);
+	}
 
 }

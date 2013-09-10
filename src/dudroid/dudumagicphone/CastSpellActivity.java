@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.TreeMap;
 import dudroid.dudumagicphone.Charm.CharmType;
 import android.os.Bundle;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
@@ -18,9 +17,6 @@ import android.speech.SpeechRecognizer;
 import android.support.v4.app.NavUtils;
 
 public class CastSpellActivity extends Activity implements RecognitionListener {
-	
-	public static final String RETURN_MESSAGE = "dudroid.dudumagicphone.returnFromCastMessage";
-	public static final String RETURN_STATE =  "dudroid.dudumagicphone.returnFromCastState";
 
 	Charm correct;
 	CharmType type;
@@ -98,16 +94,18 @@ public class CastSpellActivity extends Activity implements RecognitionListener {
 		availCharms = ((MyApplication) getApplication()).availCharms;
 		
 		Intent intent = getIntent();
-		if (intent.hasExtra(ShowSpellActivity.CHARM_TYPE_CAST)) { //activity opened from ShowSpellActivity
+		if (intent.hasExtra(ShowSpellActivity.CHARM_NAME_CAST)) { //activity opened from ShowSpellActivity
 			fromBook = true;
-			//type = CharmType.values()[intent.getIntExtra(ShowSpellActivity.CHARM_TYPE_CAST, 0)];
 			correct = availCharms.get(intent.getStringExtra(ShowSpellActivity.CHARM_NAME_CAST));
 			type = correct.type;
-		} else {
+		} else {  //activity opened from "Do Magic!"
 			correct = null;
 			fromBook = false;
-			//activity opened from "Do Magic!"
+			CharmType[] typeTable = CharmType.values();
+			int index = intent.getIntExtra(DoMagicMenuActivity.CHARM_TYPE, 0);
+			type = typeTable[index];
 		}
+		//TODO: if type != PLAIN ...
 	}
 
 	/**
@@ -157,7 +155,7 @@ public class CastSpellActivity extends Activity implements RecognitionListener {
 			intent = new Intent(this, ShowSpellActivity.class);
 			intent.putExtra(BookMenuActivity.SPELL_TO_SHOW, correct.spell);
 		} else {
-			//TODO: DoMagicMenu.class
+			intent = new Intent(this, DoMagicMenuActivity.class);
 		}
 		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(intent);
