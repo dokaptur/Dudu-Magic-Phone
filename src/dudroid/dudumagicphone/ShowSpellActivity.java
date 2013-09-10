@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 
 public class ShowSpellActivity extends Activity {
@@ -19,6 +20,7 @@ public class ShowSpellActivity extends Activity {
 	public static final String CHARM_NAME_CAST = "dudroid.dudumagicphone.CharmNameCast";
 
 	TreeMap<String, Charm> availCharms;
+	String charmName;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,7 @@ public class ShowSpellActivity extends Activity {
 		
 		Intent intent = getIntent();
 		String name = intent.getStringExtra(BookMenuActivity.SPELL_TO_SHOW);
+		charmName = name;
 		TextView textView = (TextView) findViewById(R.id.show_spell_name);
 		textView.setText(name.toUpperCase());
 		
@@ -72,13 +75,13 @@ public class ShowSpellActivity extends Activity {
 	}
 	
 	public void tryToCast(View view) {
-		Button btb = (Button) view;
-		String name = btb.getText().toString();
-		Charm charm = availCharms.get(name);
+		
+		Charm charm = availCharms.get(charmName);
 		int typeNr = charm.type.ordinal();
 		
+		
 		Intent intent = new Intent(this, CastSpellActivity.class);
-		intent.putExtra(CHARM_NAME_CAST, name);
+		intent.putExtra(CHARM_NAME_CAST, charmName);
 		intent.putExtra(CHARM_TYPE_CAST, typeNr);
 		startActivity(intent);
 	}

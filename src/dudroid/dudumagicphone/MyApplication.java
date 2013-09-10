@@ -15,9 +15,9 @@ public class MyApplication extends Application {
 		availCharms = new TreeMap<String,Charm>();
 		
 		// for debug only!!!
-		Charm debug = new Charm("debug", CharmType.PLAIN);
+		Charm debug = new Charm("go", CharmType.PLAIN);
 		debug.setResultFunction("torch", new Integer[]{3,500,100});
-		availCharms.put("debug",debug);
+		availCharms.put("go",debug);
 		
 		try {
 			FileInputStream fis = openFileInput("FileForCharms");

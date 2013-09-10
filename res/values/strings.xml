@@ -41,5 +41,6 @@
     <string name="show_spell_type_intro">Type of spell: </string>
     <string name="title_activity_cast_spell">Casting a spell</string>
     <string name="do_it">Do it!</string>
+    <string name="cancel">Cancel</string>
 
 </resources>
