@@ -1,6 +1,9 @@
 package dudroid.dudumagicphone;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+
+import android.graphics.Path;
 
 
 public class Charm implements Serializable {
@@ -11,6 +14,10 @@ public class Charm implements Serializable {
 	
 	private String result;
 	private Object[] params;
+	private ArrayList<Path> symbolPaths;
+	
+	public static int bitmapHeigh;
+	public static int bitmapWidth;
 	
 	enum CharmType {
 		PLAIN {
@@ -35,6 +42,7 @@ public class Charm implements Serializable {
 	public Charm (String spell, CharmType type) {
 		this.spell = spell;
 		this.type = type;
+		this.symbolPaths = null;
 	}
 	
 	public void setResultFunction (String name, Object[] params) {
@@ -54,6 +62,13 @@ public class Charm implements Serializable {
 	}
 	public Object[] getResultParams() {
 		return params;
+	}
+	
+	public ArrayList<Path> getSymbolPaths() {
+		return symbolPaths;
+	}
+	public void setSymbolPaths(ArrayList<Path> paths) {
+		symbolPaths = paths;
 	}
 
 	

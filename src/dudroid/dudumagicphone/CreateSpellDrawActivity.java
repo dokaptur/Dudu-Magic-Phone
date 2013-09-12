@@ -2,11 +2,18 @@ package dudroid.dudumagicphone;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnTouchListener;
+import android.widget.LinearLayout;
 import android.support.v4.app.NavUtils;
 
-public class CreateSpellDrawActivity extends Activity {
+public class CreateSpellDrawActivity extends Activity implements OnTouchListener {
+	
+	MyDrawView drawView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -14,6 +21,15 @@ public class CreateSpellDrawActivity extends Activity {
 		setContentView(R.layout.activity_create_spell_draw);
 		// Show the Up button in the action bar.
 		setupActionBar();
+		
+		
+		LinearLayout lay = (LinearLayout) findViewById(R.id.draw_field_view);
+		MyDrawView view = new MyDrawView(this);
+		view.setLayoutParams(new LinearLayout.LayoutParams(MyDrawView.heihg, MyDrawView.width));
+		view.setBackgroundColor(MyDrawView.color);
+		lay.addView(view);
+		drawView = view;
+		
 	}
 
 	/**
@@ -36,17 +52,29 @@ public class CreateSpellDrawActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
-			// This ID represents the Home or Up button. In the case of this
-			// activity, the Up button is shown. Use NavUtils to allow users
-			// to navigate up one level in the application structure. For
-			// more details, see the Navigation pattern on Android Design:
-			//
-			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
-			//
+			
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public boolean onTouch(View v, MotionEvent event) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	public void resetPaths(View view) {
+		drawView.resetPaths();
+	}
+	
+	public void goNext(View view) {
+		Charm charm = ((MyApplication) getApplication()).tmpCharm;
+		charm.setSymbolPaths(drawView.getPathList());
+		
+		Intent intent = new Intent(this, CreateSpellResActivity.class);
+		startActivity(intent);
 	}
 
 }

@@ -42,5 +42,7 @@
     <string name="title_activity_cast_spell">Casting a spell</string>
     <string name="do_it">Do it!</string>
     <string name="cancel">Cancel</string>
+    <string name="draw_symbol">Draw your magic symbol:</string>
+    <string name="reset_str">Reset</string>
 
 </resources>
