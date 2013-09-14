@@ -2,6 +2,8 @@ package dudroid.dudumagicphone;
 
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.TreeMap;
 
 import android.os.Bundle;
@@ -126,7 +128,13 @@ public class CreateSpellResActivity extends Activity implements OnItemSelectedLi
 		} 
 		if (spinner.getSelectedItemPosition() == 0) {
 			Integer[] params = getTorchParameters();
-			myCharm.setResultFunction("torch", params);
+			
+			ArrayList<Serializable> paramList = new ArrayList<Serializable>();
+			for (int i=0; i<params.length; i++) {
+				paramList.add((Serializable) params[i]);
+			}
+			
+			myCharm.setResultFunction("torch", paramList);
 		}
 		
 		TreeMap<String, Charm> availCharms = ((MyApplication) getApplication()).availCharms;
@@ -135,6 +143,8 @@ public class CreateSpellResActivity extends Activity implements OnItemSelectedLi
 			FileOutputStream fos = openFileOutput("FileForCharms", MODE_APPEND);
 			ObjectOutputStream os = new ObjectOutputStream(fos);
 			os.writeObject(myCharm);
+			os.flush(); os.close();
+			fos.flush(); fos.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -1,7 +1,6 @@
 package dudroid.dudumagicphone;
 
 import java.util.TreeMap;
-
 import dudroid.dudumagicphone.Charm.CharmType;
 import android.os.Bundle;
 import android.app.Activity;
@@ -9,10 +8,12 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.support.v4.app.NavUtils;
+
 
 public class ShowSpellActivity extends Activity {
 	
@@ -40,7 +41,16 @@ public class ShowSpellActivity extends Activity {
 		textView.setText(charm.type.toString());
 		
 		if (charm.type == CharmType.DRAW) {
-			//set in Relative Layout
+			LinearLayout lay = (LinearLayout) findViewById(R.id.move_or_draw_show);
+			
+			TextView txt = (TextView) findViewById(R.id.magic_symbol_txt);
+			txt.setText("Magic Symbol of spell:");
+			txt.setVisibility(View.VISIBLE);
+			
+			ImageView imv = new ImageView(this);
+			imv.setLayoutParams(new LayoutParams(MyDrawView.width, MyDrawView.heihg));
+			imv.setImageBitmap(charm.getBitmap((MyApplication) getApplication()));
+			lay.addView(imv);
 		} else if (charm.type == CharmType.MOVE) {
 			// set in Relative Layout
 		}

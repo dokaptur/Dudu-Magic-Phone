@@ -1,8 +1,12 @@
 package dudroid.dudumagicphone;
 
+import java.io.FileOutputStream;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -70,11 +74,26 @@ public class CreateSpellDrawActivity extends Activity implements OnTouchListener
 	}
 	
 	public void goNext(View view) {
-		Charm charm = ((MyApplication) getApplication()).tmpCharm;
-		charm.setSymbolPaths(drawView.getPathList());
 		
+		drawView.setDrawingCacheEnabled(true);
+		Bitmap bmp = drawView.getDrawingCache().copy(Config.ARGB_8888, false);
+		drawView.setDrawingCacheEnabled(false);
+		
+		Charm charm = ((MyApplication) getApplication()).tmpCharm;
+		charm.symbolStartX = drawView.symbolStartX;
+		charm.symbolStartY = drawView.symbolStartY;
+		
+		String filename = charm.getMD5hash();
+		try {
+			FileOutputStream fos = openFileOutput(filename, MODE_PRIVATE);
+			bmp.compress(Bitmap.CompressFormat.PNG, 100, fos);
+			fos.flush();
+			fos.close();
+		} catch (Exception e) {
+		}
 		Intent intent = new Intent(this, CreateSpellResActivity.class);
 		startActivity(intent);
 	}
+	
 
 }

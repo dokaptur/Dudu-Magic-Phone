@@ -16,10 +16,15 @@ public class MyDrawView extends View {
 	public static int width = 1000;
 	public static int color = Color.rgb(128, 0, 255);
 	
-	Canvas canvas;
+	public float symbolStartX;
+	public float symbolStartY;
+	
+	public boolean enabled = true;
+	
 	ArrayList<Path> pathList;
 	Path path;
 	Paint paint;
+	boolean firstTap = true;
 	
 	public MyDrawView(Context context) {
 		super(context);
@@ -27,28 +32,34 @@ public class MyDrawView extends View {
 		paint = new Paint();
 		paint.setColor(Color.WHITE);
 		paint.setStyle(Paint.Style.STROKE);
-		paint.setStrokeWidth(30);
+		paint.setStrokeWidth(40);
 		paint.setStrokeCap(Paint.Cap.ROUND);
 		paint.setStrokeJoin(Paint.Join.ROUND);
 		
 	}
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-		int action = event.getAction();
-		switch (action) {
-		case MotionEvent.ACTION_DOWN :
-			path = new Path();
-			path.moveTo(event.getX(), event.getY());
-			break;
-		case MotionEvent.ACTION_MOVE :
-			path.lineTo(event.getX(), event.getY());
-			break;
-		case MotionEvent.ACTION_UP :
-			pathList.add(path);
-			break;
+		if (enabled) {
+			int action = event.getAction();
+			switch (action) {
+			case MotionEvent.ACTION_DOWN :
+				path = new Path();
+				if (firstTap) {
+					firstTap = false;
+					symbolStartX = event.getX();
+					symbolStartY = event.getY();
+				}
+				path.moveTo(event.getX(), event.getY());
+				break;
+			case MotionEvent.ACTION_MOVE :
+				path.lineTo(event.getX(), event.getY());
+				break;
+			case MotionEvent.ACTION_UP :
+				pathList.add(path);
+				break;
+			}
+			invalidate();
 		}
-		invalidate();
-		//canvas.drawPath(path, paint);
 		return true;
 	}
 	
@@ -63,16 +74,21 @@ public class MyDrawView extends View {
 		}
 	}
 	
-	public ArrayList<Path> getPathList() {
-		return pathList;
-	}
-	public void setPaintColor (int col) {
-		paint.setColor(col);
-	}
 	public void resetPaths() {
 		pathList = new ArrayList<Path>();
 		path = null;
+		firstTap = true;
 		invalidate();
+	}
+	
+	public ArrayList<Path> getPathList() {
+		return pathList;
+	}
+	public Paint getPaint() {
+		return paint;
+	}
+	public void setPaintColor (int color) {
+		paint.setColor(color);
 	}
 
 }

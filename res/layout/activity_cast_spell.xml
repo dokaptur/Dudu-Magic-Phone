@@ -24,6 +24,16 @@
         android:layout_marginTop="5dp"
         android:textAppearance="?android:attr/textAppearanceLarge" />
     
+    <LinearLayout 
+        android:id="@+id/casting_lay"
+        android:layout_below="@id/speech_result"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp" >
+        
+    </LinearLayout>
+    
      <Button 
         android:id="@+id/resign_btn_casting"
         android:layout_alignParentRight="true"
@@ -32,5 +42,14 @@
         android:layout_height="wrap_content"
         android:text="@string/cancel"
         android:onClick="goBackDD" />
+     
+     <Button 
+        android:id="@+id/isdone_btn_casting"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:onClick="isDone" />
     
 </RelativeLayout>

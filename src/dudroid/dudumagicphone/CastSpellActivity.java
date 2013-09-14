@@ -2,13 +2,24 @@ package dudroid.dudumagicphone;
 
 import java.util.ArrayList;
 import java.util.TreeMap;
+
 import dudroid.dudumagicphone.Charm.CharmType;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.speech.RecognitionListener;
@@ -19,10 +30,14 @@ import android.support.v4.app.NavUtils;
 public class CastSpellActivity extends Activity implements RecognitionListener {
 
 	Charm correct;
+	Charm casted;
 	CharmType type;
 	TreeMap <String, Charm> availCharms;
 	boolean fromBook;
 	SpeechRecognizer reco;
+	MyDrawView drawView;
+	Drawable background;
+	int colorPaint;
 	
 	//<SpeechRecognizer
 	@Override
@@ -58,21 +73,24 @@ public class CastSpellActivity extends Activity implements RecognitionListener {
 				Toast.makeText(this, "It's not the spell you wanted to cast! Try again!", Toast.LENGTH_SHORT).show();
 				return;
 			}
-			Charm charm = availCharms.get(match);
-			Object[] params = charm.getResultParams();
-			String resultName = charm.getResultName();
-			
-			Class<?>[] paramTypes = new Class<?>[params.length];
-			for (int i=0; i<params.length; i++) {
-				paramTypes[i] = params[i].getClass();
-			}
-			
-			Class<?> charmResClass = CharmResult.class;
-			try {
-				charmResClass.getMethod(resultName, paramTypes).invoke(null, params);
-				Toast.makeText(this, "Great! You did it! You are a wizard!", Toast.LENGTH_SHORT).show();
-			} catch (Exception e) {
-				Toast.makeText(this, "Sorry, unexpected error", Toast.LENGTH_SHORT);
+			casted = availCharms.get(match);
+			if (type == CharmType.PLAIN){
+				boolean res = casted.cast();
+				if (res) {
+					Toast.makeText(this, "Great! You did it! You are a wizard!", Toast.LENGTH_SHORT);
+				} else {
+					Toast.makeText(this, "Sorry, unexpected error", Toast.LENGTH_SHORT);
+				}
+			} else if (type == CharmType.DRAW) {
+				String textToDraw = "Great! Now draw a magic symbol of " + casted.spell.toUpperCase();
+				Toast.makeText(this, textToDraw, Toast.LENGTH_SHORT).show();
+				background = new BitmapDrawable(getResources(), casted.getBitmap((MyApplication) getApplication()));
+				drawView.setBackgroundDrawable(background);
+				drawView.enabled = true;
+				Button isd = (Button) findViewById(R.id.isdone_btn_casting);
+				isd.setEnabled(true);
+			} else {
+				
 			}
 		} else {
 			Toast.makeText(this, "There is no such a spell! Try again!", Toast.LENGTH_SHORT).show();
@@ -92,6 +110,7 @@ public class CastSpellActivity extends Activity implements RecognitionListener {
 		setupActionBar();
 		
 		availCharms = ((MyApplication) getApplication()).availCharms;
+		colorPaint = Color.rgb(245,188, 169);
 		
 		Intent intent = getIntent();
 		if (intent.hasExtra(ShowSpellActivity.CHARM_NAME_CAST)) { //activity opened from ShowSpellActivity
@@ -106,6 +125,20 @@ public class CastSpellActivity extends Activity implements RecognitionListener {
 			type = typeTable[index];
 		}
 		//TODO: if type != PLAIN ...
+		if (type == CharmType.DRAW) {
+			drawView = new MyDrawView(this);
+			LinearLayout lay = (LinearLayout) findViewById(R.id.casting_lay);
+			drawView.setLayoutParams(new LinearLayout.LayoutParams(MyDrawView.heihg, MyDrawView.width));
+			drawView.setBackgroundColor(MyDrawView.color);
+			lay.addView(drawView);
+			drawView.enabled = false;
+			drawView.setPaintColor(colorPaint);
+			
+			Button isd = (Button) findViewById(R.id.isdone_btn_casting);
+			isd.setText("Drawing is done!");
+			isd.setVisibility(View.VISIBLE);
+			isd.setEnabled(false);
+		}
 	}
 
 	/**
@@ -136,8 +169,12 @@ public class CastSpellActivity extends Activity implements RecognitionListener {
 	}
 	
 	public void castSpell (View view) {
-		reco = SpeechRecognizer.createSpeechRecognizer(this);
+		if (type == CharmType.DRAW) {
+			drawView.resetPaths();
+			drawView.setBackgroundColor(MyDrawView.color);
+		}
 		
+		reco = SpeechRecognizer.createSpeechRecognizer(this);
 		Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
 		intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, getClass().getPackage().getName());
 		intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "en_US");
@@ -160,6 +197,75 @@ public class CastSpellActivity extends Activity implements RecognitionListener {
 		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(intent);
 		
+	}
+	
+	public void isDone(View view) {
+		if (type == CharmType.DRAW) {
+			drawView.enabled = false;
+			((Button) findViewById(R.id.isdone_btn_casting)).setEnabled(false);
+			boolean ok = checkBitmaps();
+			if (ok) {
+				boolean res = casted.cast();
+				if (res) {
+					Toast.makeText(this, "Great! You did it! You are a wizard!", Toast.LENGTH_SHORT).show();
+				} else {
+					Toast.makeText(this, "Sorry, unexpected error", Toast.LENGTH_SHORT).show();
+				}
+			} else {
+				Toast.makeText(this, "Sorry, your symbol is wrong. Try again!", Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+	
+	private boolean checkBitmaps() {
+		float offX = casted.symbolStartX - drawView.symbolStartX;
+		float offY = casted.symbolStartY - drawView.symbolStartY;
+		
+		ArrayList<Path> original = drawView.getPathList();
+		
+		Bitmap okBmp = casted.getBitmap((MyApplication) getApplication());
+		Bitmap drawnBmp = Bitmap.createBitmap(MyDrawView.width, MyDrawView.heihg, Bitmap.Config.ARGB_8888);
+		
+		drawnBmp.eraseColor(MyDrawView.color); 
+		Canvas canvas = new Canvas(drawnBmp);
+		Paint paint = new Paint(drawView.getPaint());
+		paint.setColor(Color.WHITE);
+		
+		for (Path path: original) {
+			Path npath = new Path(path); //!!!
+			path.offset(offX, offY, npath);
+			canvas.drawPath(npath, paint);
+		}
+		
+		int white = Color.WHITE;
+		int blue = MyDrawView.color;
+		int whiteCount = 0;
+		int aNb = 0;
+		int bNa = 0;
+		
+		for (int i=0; i<MyDrawView.width; i+=5) {
+			for (int j=0; j<MyDrawView.heihg; j+=5) {
+				int pxa = okBmp.getPixel(i, j);
+				int pxb = drawnBmp.getPixel(i, j);
+				
+				if (pxa == white) {
+					whiteCount ++;
+					if (pxb == blue) {
+						aNb ++;
+					}
+				} else {
+					if (pxb == white) {
+						bNa ++;
+					}
+				}
+			}
+		}
+		if (((float)aNb)/((float) whiteCount) < 0.5 && ((float)bNa)/((float) whiteCount) < 0.5) {
+			return true;
+		}
+		return false;
+		
+		//return true;
 	}
 
 }
