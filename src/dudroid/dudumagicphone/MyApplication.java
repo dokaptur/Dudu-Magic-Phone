@@ -12,7 +12,8 @@ public class MyApplication extends Application {
 	public TreeMap<String, Charm> availCharms;
 	public Charm tmpCharm;
 	
-	public MyApplication() {
+	@Override
+	public void onCreate() {
 		availCharms = new TreeMap<String,Charm>();
 		
 		// for debug only!!!
@@ -36,14 +37,11 @@ public class MyApplication extends Application {
 				}
 			}while (read != null);
 			is.close();
-			/*FileOutputStream fos = openFileOutput("FileForCharms", MODE_PRIVATE);
-			ObjectOutputStream os = new ObjectOutputStream(fos);
-			os.writeObject(debug);
-			os.close();*/
 	        
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
+	
+	
 }
