@@ -1,9 +1,13 @@
 package dudroid.dudumagicphone;
 
+import java.io.File;
 import java.util.TreeMap;
+
 import dudroid.dudumagicphone.Charm.CharmType;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -89,10 +93,47 @@ public class ShowSpellActivity extends Activity {
 		startActivity(intent);
 	}
 	
-	public void returnToMenu(View view) {
+	private void yesDelete() {
+		Charm charm = availCharms.get(charmName);
+		if (charm.type == CharmType.DRAW) {
+			File file = new File(this.getFilesDir(), charm.getMD5hash());
+			if (file != null) {
+				file.delete();
+			}
+		}
+		availCharms.remove(charmName);
+		((MyApplication) getApplication()).serializeCharms();
+		
 		Intent intent = new Intent(this, BookMenuActivity.class);
 		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(intent);
+	}
+	
+	public void deleteSpell(View view) {
+		
+		AlertDialog.Builder adBuild = new AlertDialog.Builder(this);
+		adBuild.setCancelable(false);
+		//adBuild.setTitle("Deleting a spell");
+		adBuild.setMessage("Are you sure you want to delete this spell?");
+		adBuild.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				ShowSpellActivity.this.yesDelete();
+				//dialog.cancel();
+			}
+		});
+		adBuild.setNegativeButton("No", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.cancel();
+			}
+		});
+		
+		AlertDialog dialog = adBuild.create();
+		dialog.show();
+		
 	}
 
 }

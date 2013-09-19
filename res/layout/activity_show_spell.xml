@@ -76,7 +76,7 @@
         android:layout_alignParentBottom="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/return_str"
-        android:onClick="returnToMenu" />
+        android:text="@string/delete_spell"
+        android:onClick="deleteSpell" />
 
 </RelativeLayout>

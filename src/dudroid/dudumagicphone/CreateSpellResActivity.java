@@ -1,7 +1,5 @@
 package dudroid.dudumagicphone;
 
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.TreeMap;
@@ -139,15 +137,8 @@ public class CreateSpellResActivity extends Activity implements OnItemSelectedLi
 		
 		TreeMap<String, Charm> availCharms = ((MyApplication) getApplication()).availCharms;
 		availCharms.put(myCharm.spell, myCharm);
-		try {
-			FileOutputStream fos = openFileOutput("FileForCharms", MODE_APPEND);
-			ObjectOutputStream os = new ObjectOutputStream(fos);
-			os.writeObject(myCharm);
-			os.flush(); os.close();
-			fos.flush(); fos.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		((MyApplication) getApplication()).serializeCharms();
+		
 		Intent intent = new Intent(this, MainActivity.class);
 		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(intent);

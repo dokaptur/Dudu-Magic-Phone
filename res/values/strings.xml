@@ -44,5 +44,6 @@
     <string name="cancel">Cancel</string>
     <string name="draw_symbol">Draw your magic symbol:</string>
     <string name="reset_str">Reset</string>
+    <string name="delete_spell">Delete this spell</string>
 
 </resources>

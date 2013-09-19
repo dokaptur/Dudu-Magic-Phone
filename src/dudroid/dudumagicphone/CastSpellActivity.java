@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -61,6 +60,7 @@ public class CastSpellActivity extends Activity implements RecognitionListener {
 	@Override
 	public void onReadyForSpeech(Bundle params) {}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void onResults(Bundle data) {
 		ArrayList<String> matches = data.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);

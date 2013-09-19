@@ -114,6 +114,7 @@ public final class R {
         public static final int cancel=0x7f050022;
         public static final int choose_result=0x7f050013;
         public static final int create_own=0x7f050004;
+        public static final int delete_spell=0x7f050025;
         public static final int do_it=0x7f050021;
         public static final int do_magic=0x7f050002;
         public static final int draw_symbol=0x7f050023;

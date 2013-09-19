@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.TreeMap;
 
 import dudroid.dudumagicphone.Charm.CharmType;
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.util.SparseIntArray;
@@ -22,8 +21,8 @@ public class BookMenuActivity extends Activity implements OnClickListener {
 	public static final String SPELL_TO_SHOW = "dudroid.dudumagicphone.SpellToShow";
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+	protected void onStart() { //onCreate
+		super.onStart();
 		setContentView(R.layout.activity_book_menu);
 		// Show the Up button in the action bar.
 		setupActionBar();
