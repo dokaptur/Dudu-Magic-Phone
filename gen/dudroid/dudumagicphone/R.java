@@ -9,6 +9,7 @@ package dudroid.dudumagicphone;
 
 public final class R {
     public static final class array {
+        public static final int axis_mnu=0x7f060001;
         public static final int results_spinner=0x7f060000;
     }
     public static final class attr {
@@ -30,59 +31,70 @@ public final class R {
         public static final int unicorn=0x7f020003;
     }
     public static final class id {
-        public static final int action_settings=0x7f090034;
-        public static final int breakes=0x7f090020;
-        public static final int button_create=0x7f09002a;
-        public static final int button_do=0x7f090028;
-        public static final int button_read=0x7f090029;
+        public static final int action_settings=0x7f09003f;
+        public static final int add_rot=0x7f09001e;
+        public static final int axis_spinner=0x7f09001c;
+        public static final int axis_txt=0x7f09001d;
+        public static final int breakes=0x7f09002b;
+        public static final int button_create=0x7f090035;
+        public static final int button_do=0x7f090033;
+        public static final int button_read=0x7f090034;
         public static final int casting_lay=0x7f090008;
-        public static final int choose_res_text_id=0x7f090018;
+        public static final int choose_res_text_id=0x7f090023;
         public static final int choose_type_txt=0x7f09000e;
+        public static final int createRotList=0x7f090018;
+        public static final int degrees=0x7f09001a;
+        public static final int degrees_txt=0x7f09001b;
         public static final int doIt_btn=0x7f090006;
-        public static final int done_btn=0x7f090023;
-        public static final int done_btn_book=0x7f090033;
+        public static final int done_btn=0x7f09002e;
+        public static final int done_btn_book=0x7f09003e;
         public static final int draw_field_view=0x7f090015;
         public static final int draw_symbol_txt=0x7f090014;
-        public static final int duration=0x7f09001d;
-        public static final int duration_txt=0x7f09001e;
-        public static final int interceptions_txt=0x7f090021;
+        public static final int duration=0x7f090028;
+        public static final int duration_txt=0x7f090029;
+        public static final int interceptions_txt=0x7f09002c;
         public static final int isdone_btn_casting=0x7f09000a;
-        public static final int light_preferences=0x7f09001a;
-        public static final int magic_symbol_txt=0x7f090031;
-        public static final int move_or_draw_show=0x7f090030;
+        public static final int light_preferences=0x7f090025;
+        public static final int lin_lay_rot=0x7f090020;
+        public static final int magic_symbol_txt=0x7f09003c;
+        public static final int move_or_draw_show=0x7f09003b;
         public static final int next_btn1=0x7f090013;
         public static final int next_btn2=0x7f090016;
+        public static final int next_cms=0x7f090022;
         public static final int recognitions=0x7f09000d;
-        public static final int rel_lay=0x7f090027;
+        public static final int rel_lay=0x7f090032;
+        public static final int rem_last_rot=0x7f090021;
         public static final int reset_paths=0x7f090017;
         public static final int resign_btn_casting=0x7f090009;
-        public static final int results=0x7f090019;
+        public static final int results=0x7f090024;
+        public static final int rotation_chooser=0x7f090019;
         public static final int saybutton=0x7f09000c;
         public static final int saytext=0x7f09000b;
-        public static final int show_spell_name=0x7f09002d;
-        public static final int show_spell_name_intro=0x7f09002c;
-        public static final int show_spell_type=0x7f09002f;
-        public static final int show_spell_type_intro=0x7f09002e;
+        public static final int scroll_rot=0x7f09001f;
+        public static final int show_spell_name=0x7f090038;
+        public static final int show_spell_name_intro=0x7f090037;
+        public static final int show_spell_type=0x7f09003a;
+        public static final int show_spell_type_intro=0x7f090039;
         public static final int speaking_drawing_book=0x7f090002;
-        public static final int speaking_drawing_doMnu=0x7f090025;
+        public static final int speaking_drawing_doMnu=0x7f090030;
         public static final int speaking_drawing_list=0x7f090003;
         public static final int speaking_only_book=0x7f090000;
-        public static final int speaking_only_doMnu=0x7f090024;
+        public static final int speaking_only_doMnu=0x7f09002f;
         public static final int speaking_only_list=0x7f090001;
         public static final int speaking_waving_book=0x7f090004;
-        public static final int speaking_waving_doMnu=0x7f090026;
+        public static final int speaking_waving_doMnu=0x7f090031;
         public static final int speaking_waving_list=0x7f090005;
         public static final int speech_result=0x7f090007;
         public static final int speking_drawing_id=0x7f090011;
         public static final int speking_id=0x7f090010;
         public static final int speking_waving_id=0x7f090012;
         public static final int spell_types=0x7f09000f;
-        public static final int times=0x7f09001b;
-        public static final int times_txt=0x7f09001c;
-        public static final int try_btn=0x7f090022;
-        public static final int try_btn_book=0x7f090032;
-        public static final int unicorn_png=0x7f09002b;
-        public static final int with_txt=0x7f09001f;
+        public static final int times=0x7f090026;
+        public static final int times_txt=0x7f090027;
+        public static final int try_btn=0x7f09002d;
+        public static final int try_btn_book=0x7f09003d;
+        public static final int unicorn_png=0x7f090036;
+        public static final int with_txt=0x7f09002a;
     }
     public static final class layout {
         public static final int activity_book_menu=0x7f030000;
@@ -109,15 +121,19 @@ public final class R {
     }
     public static final class string {
         public static final int action_settings=0x7f050001;
-        public static final int add_spell=0x7f05001b;
+        public static final int add=0x7f05002b;
+        public static final int add_spell=0x7f05001c;
         public static final int app_name=0x7f050000;
-        public static final int cancel=0x7f050022;
+        public static final int axis=0x7f050029;
+        public static final int cancel=0x7f050023;
         public static final int choose_result=0x7f050013;
         public static final int create_own=0x7f050004;
-        public static final int delete_spell=0x7f050025;
-        public static final int do_it=0x7f050021;
+        public static final int create_rotation_list=0x7f050025;
+        public static final int degrees_around=0x7f050028;
+        public static final int delete_spell=0x7f050027;
+        public static final int do_it=0x7f050022;
         public static final int do_magic=0x7f050002;
-        public static final int draw_symbol=0x7f050023;
+        public static final int draw_symbol=0x7f050024;
         public static final int hello_world=0x7f05000f;
         public static final int interceptions=0x7f050017;
         public static final int light_breakes=0x7f050015;
@@ -125,12 +141,14 @@ public final class R {
         public static final int magic_book=0x7f050003;
         public static final int next_btn=0x7f05000e;
         public static final int nr1=0x7f050018;
-        public static final int nr1000=0x7f050019;
-        public static final int reset_str=0x7f050024;
-        public static final int return_str=0x7f05001e;
+        public static final int nr1000=0x7f05001a;
+        public static final int nr360=0x7f050019;
+        public static final int remove_last_rotation=0x7f05002a;
+        public static final int reset_str=0x7f050026;
+        public static final int return_str=0x7f05001f;
         public static final int say_spell=0x7f050006;
-        public static final int show_spell_name_intro=0x7f05001d;
-        public static final int show_spell_type_intro=0x7f05001f;
+        public static final int show_spell_name_intro=0x7f05001e;
+        public static final int show_spell_type_intro=0x7f050020;
         public static final int speakin_drawing=0x7f050009;
         public static final int speakin_drawing_spell=0x7f05000c;
         public static final int speaking_spell=0x7f050008;
@@ -138,13 +156,13 @@ public final class R {
         public static final int speaking_waving=0x7f05000a;
         public static final int speaking_waving_spell=0x7f05000d;
         public static final int spell_type_text=0x7f050007;
-        public static final int title_activity_book_menu=0x7f05001c;
-        public static final int title_activity_cast_spell=0x7f050020;
+        public static final int title_activity_book_menu=0x7f05001d;
+        public static final int title_activity_cast_spell=0x7f050021;
         public static final int title_activity_create_spell=0x7f050005;
         public static final int title_activity_create_spell_draw=0x7f050011;
         public static final int title_activity_create_spell_move=0x7f050012;
         public static final int title_activity_create_spell_res=0x7f050010;
-        public static final int try_spell=0x7f05001a;
+        public static final int try_spell=0x7f05001b;
         public static final int with=0x7f050016;
     }
     public static final class style {

@@ -6,11 +6,109 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".CreateSpellMoveActivity" >
+    tools:context=".CreateSpellMoveActivity"
+    android:background="#E3CEF6" >
 
     <TextView
+    	android:id="@+id/createRotList"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/create_rotation_list" />
+    
+    <RelativeLayout 
+        android:id="@+id/rotation_chooser"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/createRotList"
+        android:layout_marginTop="10dp" >
+        
+        <EditText 
+            android:id="@+id/degrees"
+            android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:hint="@string/nr360"
+        	android:inputType="numberDecimal" />
+        
+        <TextView 
+            android:id="@+id/degrees_txt"
+            android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_toRightOf="@id/degrees"
+        	android:textAppearance="?android:attr/textAppearanceMedium"
+        	android:layout_marginLeft="5dp"
+        	android:layout_alignBaseline="@id/degrees"
+        	android:text="@string/degrees_around" />
+        
+         <Spinner 
+            android:id="@+id/axis_spinner"
+            android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_toRightOf="@id/degrees_txt"
+        	android:layout_marginLeft="5dp"
+        	android:layout_alignBaseline="@+id/degrees" />
+         
+         <TextView 
+            android:id="@+id/axis_txt"
+            android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_toRightOf="@id/axis_spinner"
+        	android:textAppearance="?android:attr/textAppearanceMedium"
+        	android:layout_marginLeft="5dp"
+        	android:layout_alignBaseline="@id/degrees"
+        	android:text="@string/axis" />
+                
+                    
+    </RelativeLayout>
+    
+    <Button 
+        android:id="@+id/add_rot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:layout_below="@+id/rotation_chooser"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="5dp"
+        android:text="@string/add"
+        android:onClick="addRotation" />  
+    
+    <ScrollView 
+        android:id="@+id/scroll_rot"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/add_rot"
+        android:background="#FFFFFF" >
+        
+        <LinearLayout
+            android:id="@+id/lin_lay_rot"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+            
+        </LinearLayout>
+        
+    </ScrollView>
+    
+    <Button 
+        android:id="@+id/rem_last_rot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:text="@string/remove_last_rotation"
+        android:onClick="removeLastRotation"/>
+    
+     <Button 
+        android:id="@+id/next_cms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:text="@string/next_btn"
+        android:onClick="goNext"/>
+    
+    
+    
+    
 
 </RelativeLayout>

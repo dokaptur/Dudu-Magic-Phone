@@ -26,12 +26,19 @@
         <item>Switching flashlight on</item>
         <item>Nothing</item>
     </string-array>
+    
+    <string-array name="axis_mnu">
+        <item>X</item>
+        <item>Y</item>
+        <item>Z</item>
+    </string-array>
 
     <string name="light_times">time(s), for</string>
     <string name="light_breakes">ms each time</string>
     <string name="with">with</string>
     <string name="interceptions">ms interceptions</string>
     <string name="nr1">1</string>
+    <string name="nr360">360</string>
     <string name="nr1000">1000</string>
     <string name="try_spell">Try</string>
     <string name="add_spell">Add spell to the \n Book Of Magik</string>
@@ -43,7 +50,12 @@
     <string name="do_it">Do it!</string>
     <string name="cancel">Cancel</string>
     <string name="draw_symbol">Draw your magic symbol:</string>
+    <string name="create_rotation_list">Create your list of rotation:</string>
     <string name="reset_str">Reset</string>
     <string name="delete_spell">Delete this spell</string>
+    <string name="degrees_around">degrees around</string>
+    <string name="axis">axis</string>
+    <string name="remove_last_rotation">Remove \nlast rotation</string>
+    <string name="add">Add</string>
 
 </resources>

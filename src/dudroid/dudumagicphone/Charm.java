@@ -19,7 +19,6 @@ public class Charm implements Serializable {
 	public CharmType type;
 	
 	private String result;
-	//private Object[] params;
 	private ArrayList<Serializable> paramList;
 	
 	public float symbolStartX;
@@ -27,6 +26,8 @@ public class Charm implements Serializable {
 	
 	public static int bitmapHeigh;
 	public static int bitmapWidth;
+	
+	public ArrayList<MyRotation> rotation;
 	
 	enum CharmType implements Serializable{
 		PLAIN {
@@ -48,23 +49,32 @@ public class Charm implements Serializable {
 		}
 	}
 	
+	static class MyRotation implements Serializable {
+		private static final long serialVersionUID = -8414230214753211411L;
+		int degrees;
+		int axis; // 0- x axis, 1- y ax, 2- z ax
+		
+		public MyRotation (int d, int a) {
+			degrees = d;
+			axis = a;
+		}
+	}
+	
 	public Charm (String spell, CharmType type) {
 		this.spell = spell;
 		this.type = type;
 		paramList = new ArrayList<Serializable>();
+		rotation = new ArrayList<Charm.MyRotation>();
+	}
+	
+	public Charm (String spell, CharmType type, ArrayList<MyRotation> rotation) {
+		this(spell, type);
+		this.rotation = rotation;
 	}
 	
 	public void setResultFunction (String name, ArrayList<Serializable> params) {
 		result = name;
 		paramList = params;
-		/*if (params != null) {
-			int len = params.length;
-			this.params = new Object[len];
-			
-			for (int i=0; i<len; i++) {
-				this.params[i] = params[i];
-			}
-		}*/
 	}
 	
 	public String getResultName() {
