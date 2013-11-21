@@ -72,14 +72,13 @@ public class CreateSpellMoveActivity extends Activity implements OnItemSelectedL
 		Charm.MyRotation rot = new Charm.MyRotation(degrees, axis);
 		charm.rotation.add(rot);
 		
-		
 		LinearLayout layout = (LinearLayout) findViewById(R.id.lin_lay_rot);
 		TextView line = new TextView(this);
 		String str = degrees + " degrees around " + Axs[axis] + " axis";
-		//Toast.makeText(this, str, Toast.LENGTH_SHORT);
 		line.setText(str);
 		line.setTextAppearance(this, android.R.style.TextAppearance_Medium);
-		layout.addView(line);
+		if (layout != null) {
+		layout.addView(line); }
 		
 	}
 	
@@ -91,6 +90,10 @@ public class CreateSpellMoveActivity extends Activity implements OnItemSelectedL
 	}
 	
 	public void goNext (View view) {
+		if (charm.rotation.size() == 0) {
+			Toast.makeText(this, "Add minimum one rotation!", Toast.LENGTH_SHORT).show();
+			return;
+		}
 		Intent intent = new Intent(this, CreateSpellResActivity.class);
 		startActivity(intent);
 	}

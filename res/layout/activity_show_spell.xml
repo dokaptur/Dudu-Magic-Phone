@@ -58,6 +58,23 @@
 	        android:visibility="gone"
 	        android:textAppearance="?android:attr/textAppearanceMedium"
 	        android:layout_marginBottom="5dp" />
+        <ScrollView 
+	        android:id="@+id/scroll_rot2"
+	        android:layout_width="fill_parent"
+	        android:layout_height="300dp"
+	        android:layout_marginTop="10dp"
+	        android:background="#FFFFFF"
+	        android:visibility="gone" >
+		        
+	        <LinearLayout
+	            android:id="@+id/lin_lay_rot2"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:orientation="vertical" >
+	            
+	        </LinearLayout>
+	        
+	    </ScrollView>
         
     </LinearLayout>
     

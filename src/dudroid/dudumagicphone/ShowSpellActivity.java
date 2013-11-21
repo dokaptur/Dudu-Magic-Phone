@@ -1,6 +1,7 @@
 package dudroid.dudumagicphone;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.TreeMap;
 
 import dudroid.dudumagicphone.Charm.CharmType;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.support.v4.app.NavUtils;
 
@@ -56,7 +58,26 @@ public class ShowSpellActivity extends Activity {
 			imv.setImageBitmap(charm.getBitmap((MyApplication) getApplication()));
 			lay.addView(imv);
 		} else if (charm.type == CharmType.MOVE) {
-			// set in Relative Layout
+			
+			TextView txt = (TextView) findViewById(R.id.magic_symbol_txt);
+			txt.setText("List of Rotation:");
+			txt.setVisibility(View.VISIBLE);
+			
+			LinearLayout lay = (LinearLayout) findViewById(R.id.lin_lay_rot2);
+			ArrayList<Charm.MyRotation> list = charm.rotation;
+			String[] Axs = new String[] {"x", "y", "z"};
+			
+			for (int i=0; i<list.size(); i++) {
+				TextView line = new TextView(this);
+				String str = list.get(i).degrees + " degrees around " + Axs[list.get(i).axis] + " axis";
+				line.setText(str);
+				line.setTextAppearance(this, android.R.style.TextAppearance_Medium);
+				lay.addView(line);
+			}
+			
+			ScrollView scroll = (ScrollView) findViewById(R.id.scroll_rot2);
+			scroll.setVisibility(View.VISIBLE);
+			
 		}
 	}
 

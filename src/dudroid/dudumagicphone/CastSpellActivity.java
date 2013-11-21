@@ -6,6 +6,7 @@ import java.util.TreeMap;
 import dudroid.dudumagicphone.Charm.CharmType;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -14,11 +15,16 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.speech.RecognitionListener;
@@ -26,7 +32,7 @@ import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.support.v4.app.NavUtils;
 
-public class CastSpellActivity extends Activity implements RecognitionListener {
+public class CastSpellActivity extends Activity implements RecognitionListener, SensorEventListener {
 
 	Charm correct;
 	Charm casted;
@@ -37,6 +43,19 @@ public class CastSpellActivity extends Activity implements RecognitionListener {
 	MyDrawView drawView;
 	Drawable background;
 	int colorPaint;
+	
+	boolean rotationEnabled;
+	Charm.MyRotation currentRotation;
+	int rotationIndex;
+	Sensor gyro;
+	SensorManager sManage;
+	float way [][] = new float[3][2];
+	
+	static final float NS2S = 1.0f / 1000000000.0f;
+	static final float D2R = (float)Math.PI / 180f;
+    float timestamp;
+    float err = (float) 45 * D2R;
+    
 	
 	//<SpeechRecognizer
 	@Override
@@ -90,7 +109,35 @@ public class CastSpellActivity extends Activity implements RecognitionListener {
 				Button isd = (Button) findViewById(R.id.isdone_btn_casting);
 				isd.setEnabled(true);
 			} else {
+				String textToDraw = "Great! Now rotate our phone!";
+				Toast.makeText(this, textToDraw, Toast.LENGTH_SHORT).show();
+				LinearLayout lay = (LinearLayout) findViewById(R.id.lin_lay_rot3);
+				ArrayList<Charm.MyRotation> list = casted.rotation;
+				String[] Axs = new String[] {"x", "y", "z"};
 				
+				for (int i=0; i<list.size(); i++) {
+					TextView line = new TextView(this);
+					String str = list.get(i).degrees + " degrees around " + Axs[list.get(i).axis] + " axis";
+					line.setText(str);
+					line.setTextAppearance(this, android.R.style.TextAppearance_Medium);
+					if (i == 0) {
+						line.setTextColor(Color.RED);
+					}
+					lay.addView(line);
+				}
+				
+				ScrollView scroll = (ScrollView) findViewById(R.id.scroll_rot3);
+				scroll.setVisibility(View.VISIBLE);
+				
+				Button isd = (Button) findViewById(R.id.isdone_btn_casting);
+				isd.setText("Try again \nred rotation");
+				isd.setVisibility(View.VISIBLE);
+				isd.setEnabled(true);
+			
+				rotationEnabled = true;
+				timestamp = 0;
+				currentRotation = list.get(0);
+				rotationIndex = 0;
 			}
 		} else {
 			Toast.makeText(this, "There is no such a spell! Try again!", Toast.LENGTH_SHORT).show();
@@ -111,6 +158,10 @@ public class CastSpellActivity extends Activity implements RecognitionListener {
 		
 		availCharms = ((MyApplication) getApplication()).availCharms;
 		colorPaint = Color.rgb(245,188, 169);
+		rotationEnabled = false;
+		
+		sManage = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+		gyro = sManage.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
 		
 		Intent intent = getIntent();
 		if (intent.hasExtra(ShowSpellActivity.CHARM_NAME_CAST)) { //activity opened from ShowSpellActivity
@@ -139,6 +190,18 @@ public class CastSpellActivity extends Activity implements RecognitionListener {
 			isd.setVisibility(View.VISIBLE);
 			isd.setEnabled(false);
 		}
+	}
+	
+	@Override
+	protected void onResume() {
+	    super.onResume();
+	    sManage.registerListener(this, gyro, SensorManager.SENSOR_DELAY_NORMAL);
+	}
+
+	@Override
+	protected void onPause() {
+	    super.onPause();
+	    sManage.unregisterListener(this);
 	}
 
 	/**
@@ -214,6 +277,8 @@ public class CastSpellActivity extends Activity implements RecognitionListener {
 			} else {
 				Toast.makeText(this, "Sorry, your symbol is wrong. Try again!", Toast.LENGTH_SHORT).show();
 			}
+		} else if (type == CharmType.MOVE) { // we want to try "red rotation" again 
+			timestamp = 0;
 		}
 	}
 	
@@ -266,6 +331,59 @@ public class CastSpellActivity extends Activity implements RecognitionListener {
 		return false;
 		
 		//return true;
+	}
+
+	@Override
+	public void onAccuracyChanged(Sensor sensor, int accuracy) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public void nextRotation() {
+		LinearLayout lay = (LinearLayout) findViewById(R.id.lin_lay_rot3);
+		TextView rot = (TextView) lay.getChildAt(rotationIndex);
+		rot.setTextColor(Color.GREEN);
+		if (rotationIndex == lay.getChildCount()-1) {
+			rotationEnabled = false;
+			boolean res = casted.cast();
+			if (res) {
+				Toast.makeText(this, "Great! You did it! You are a wizard!", Toast.LENGTH_SHORT).show();
+			} else {
+				Toast.makeText(this, "Sorry, unexpected error", Toast.LENGTH_SHORT).show();
+			}
+		} else {
+			rotationIndex++;
+			currentRotation = casted.rotation.get(rotationIndex);
+			((TextView) lay.getChildAt(rotationIndex)).setTextColor(Color.RED);
+			Toast.makeText(this, "Roatation accepted! Do next one!", Toast.LENGTH_SHORT).show();
+			timestamp = 0;
+		}
+	}
+
+	@Override
+	public void onSensorChanged(SensorEvent event) {
+		if (!rotationEnabled) return;
+		if (timestamp == 0) {
+			for (int i=0; i<3; i++) {
+				way[i][0] = 0; // way during rotation
+				way[i][1] = currentRotation.axis == i ? (float) currentRotation.degrees * D2R : 0; // way I have to reach to "pass" rotation
+			}
+			timestamp = event.timestamp;
+		} else {
+			final float dT = (event.timestamp - timestamp) * NS2S;
+			boolean finished = true;
+			
+			for (int i=0; i<3; i++) {
+				way[i][0] += event.values[i] * dT;
+				finished = finished && Math.abs(way[i][0] - way[i][1]) < err;
+			}
+			if (finished) {
+				nextRotation();
+			} else {
+				timestamp = event.timestamp;
+			}
+		}
+		
 	}
 
 }

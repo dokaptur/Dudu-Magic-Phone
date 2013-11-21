@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <issue id="DefaultLocale">
+        <ignore path="src/dudroid/dudumagicphone/CastSpellActivity.java" />
+        <ignore path="src/dudroid/dudumagicphone/ShowSpellActivity.java" />
+    </issue>
+</lint>

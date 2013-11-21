@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,7 +7,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".CreateSpellMoveActivity"
-    android:background="#E3CEF6" >
+    android:background="#E3CEF6"
+    android:orientation="vertical" >
 
     <TextView
     	android:id="@+id/createRotList"
@@ -20,7 +21,6 @@
         android:id="@+id/rotation_chooser"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/createRotList"
         android:layout_marginTop="10dp" >
         
         <EditText 
@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
         	android:hint="@string/nr360"
-        	android:inputType="numberDecimal" />
+        	android:inputType="numberSigned" />
         
         <TextView 
             android:id="@+id/degrees_txt"
@@ -65,20 +65,19 @@
         android:id="@+id/add_rot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/rotation_chooser"
-        android:layout_alignParentRight="true"
+        android:layout_gravity="right"
         android:layout_marginTop="5dp"
         android:text="@string/add"
-        android:onClick="addRotation" />  
+        android:onClick="addRotation" /> 
+        
     
     <ScrollView 
         android:id="@+id/scroll_rot"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="300dp"
         android:layout_marginTop="10dp"
-        android:layout_below="@id/add_rot"
         android:background="#FFFFFF" >
-        
+	        
         <LinearLayout
             android:id="@+id/lin_lay_rot"
             android:layout_width="fill_parent"
@@ -89,26 +88,36 @@
         
     </ScrollView>
     
-    <Button 
-        android:id="@+id/rem_last_rot"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:text="@string/remove_last_rotation"
-        android:onClick="removeLastRotation"/>
     
-     <Button 
-        android:id="@+id/next_cms"
-        android:layout_width="wrap_content"
+    <RelativeLayout 
+        android:id="@+id/downsite_rel_lay"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:text="@string/next_btn"
-        android:onClick="goNext"/>
+        android:layout_width="fill_parent"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="bottom">
+    
+	    <Button 
+	        android:id="@+id/rem_last_rot"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_alignParentBottom="true"
+	        android:text="@string/remove_last_rotation"
+	        android:onClick="removeLastRotation"/>
+	    
+	     <Button 
+	        android:id="@+id/next_cms"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentRight="true"
+	        android:layout_alignParentBottom="true"
+	        android:text="@string/next_btn"
+	        android:onClick="goNext"/>
+     
+     </RelativeLayout>
     
     
     
     
 
-</RelativeLayout>
+</LinearLayout>
