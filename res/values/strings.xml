@@ -11,10 +11,10 @@
     <string name="spell_type_text">Choose a type of your spell:</string>
     <string name="speaking_spell">Speaking only</string>
     <string name="speakin_drawing">Speaking and drawing</string>
-    <string name="speaking_waving">Speaking and waving</string>
+    <string name="speaking_waving">Speaking and rotating</string>
     <string name="speaking_spell_spell">Speaking only Spells</string>
     <string name="speakin_drawing_spell">Speaking and drawing Spells</string>
-    <string name="speaking_waving_spell">Speaking and waving Spells</string>
+    <string name="speaking_waving_spell">Speaking and rotating Spells</string>
     <string name="next_btn">Next</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_create_spell_res">Create a Spell - Step 3</string>

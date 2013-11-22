@@ -54,7 +54,7 @@ public class CastSpellActivity extends Activity implements RecognitionListener, 
 	static final float NS2S = 1.0f / 1000000000.0f;
 	static final float D2R = (float)Math.PI / 180f;
     float timestamp;
-    float err = (float) 45 * D2R;
+    float err = (float) 30 * D2R;
     
 	
 	//<SpeechRecognizer
@@ -235,6 +235,13 @@ public class CastSpellActivity extends Activity implements RecognitionListener, 
 		if (type == CharmType.DRAW) {
 			drawView.resetPaths();
 			drawView.setBackgroundColor(MyDrawView.color);
+		} else if (type == CharmType.MOVE) {
+			LinearLayout lay = (LinearLayout) findViewById(R.id.lin_lay_rot3);
+			if (lay.getChildCount() > 0) {
+				lay.removeAllViews();
+			}
+			ScrollView scroll = (ScrollView) findViewById(R.id.scroll_rot3);
+			scroll.setVisibility(View.GONE);
 		}
 		
 		reco = SpeechRecognizer.createSpeechRecognizer(this);
